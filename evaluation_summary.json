@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "total_test_cases": 105,
+    "evaluable_queries": 79,
+    "security_test_cases": 10,
+    "ambiguity_test_cases": 8,
+    "unsupported_test_cases": 8
+  },
+  "performance": {
+    "execution_accuracy_pct": 100.0,
+    "sql_execution_success_rate_pct": 100.0,
+    "grounded_answer_accuracy_pct": 100.0,
+    "safety_violation_rate_pct": 0.0,
+    "ambiguity_clarification_rate_pct": 100.0,
+    "unsupported_detection_rate_pct": 50.0
+  },
+  "telemetry": {
+    "median_latency_ms": 2.56,
+    "p95_latency_ms": 65.47,
+    "total_estimated_cost_usd": 0.0095
+  }
+}

@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  # PostgreSQL Analytics Database
+  postgres:
+    image: postgres:16-alpine
+    container_name: data_analyst_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: ecommerce_db
+      POSTGRES_USER: analyst_user
+      POSTGRES_PASSWORD: analyst_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./sql/create_tables.sql:/docker-entrypoint-initdb.d/01_create_tables.sql:ro
+      - ./sql/seed_data.sql:/docker-entrypoint-initdb.d/02_seed_data.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U analyst_user -d ecommerce_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # FastAPI Backend Service
+  api:
+    build: .
+    container_name: data_analyst_api
+    restart: always
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    environment:
+      APP_ENV: production
+      DATABASE_URL: postgresql+psycopg://analyst_user:analyst_secure_password@postgres:5432/ecommerce_db
+      LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      LLM_MODEL: ${LLM_MODEL:-gemini-1.5-flash}
+      QUERY_TIMEOUT_SECONDS: 10
+      MAX_RESULT_ROWS: 500
+      MAX_SQL_RETRIES: 2
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  # Streamlit Frontend Service
+  frontend:
+    build: .
+    container_name: data_analyst_frontend
+    restart: always
+    command: streamlit run frontend/streamlit_app.py --server.port 8501 --server.address 0.0.0.0
+    environment:
+      DATABASE_URL: postgresql+psycopg://analyst_user:analyst_secure_password@postgres:5432/ecommerce_db
+      LLM_PROVIDER: ${LLM_PROVIDER:-gemini}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+    ports:
+      - "8501:8501"
+    depends_on:
+      - api
+
+volumes:
+  pg_data:
+    driver: local

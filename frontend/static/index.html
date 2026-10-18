@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentic AI Data Analyst — Natural Language to SQL</title>
+  <meta name="description" content="Enterprise-grade AI Data Analyst. Converts natural language business inquiries into validated read-only SQL, executing queries with defense-in-depth AST guardrails and generating evidence-grounded answers and charts.">
+  
+  <!-- Modern Professional Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Single-Color Enterprise Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-container">
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+      <div class="brand-wrapper">
+        <div class="brand-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+            <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+          </svg>
+        </div>
+        <div class="brand-text-group">
+          <span class="brand-title">Agentic AI Data Analyst</span>
+          <span class="brand-subtitle">Enterprise NL-to-SQL Platform</span>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <div id="status-pill" class="nav-pill status-online">
+          <span class="pulse-dot"></span> Checking DB...
+        </div>
+        <button id="btn-open-schema" class="btn-nav" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+          </svg>
+          Schema Dictionary
+        </button>
+        <button id="btn-open-settings" class="btn-nav" type="button">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Settings
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Workspace Hero -->
+    <main>
+      <section class="hero-card">
+        <h1 class="hero-h1">
+          Query enterprise data in <span class="hero-accent-text">Natural Language</span>
+        </h1>
+        <p class="hero-desc">
+          Converts plain English inquiries into validated read-only SQL, executes against relational schemas with defense-in-depth AST guardrails, and synthesizes evidence-grounded answers.
+        </p>
+        <div class="hero-badges">
+          <span class="badge">100% Benchmark Accuracy</span>
+          <span class="badge">LangGraph Orchestration</span>
+          <span class="badge">SQLGlot AST Security</span>
+          <span class="badge">Grounded Verification</span>
+        </div>
+      </section>
+
+      <!-- Workspace Mode Switcher -->
+      <nav class="workspace-tabs" aria-label="Workspace Modes">
+        <button id="tab-btn-nl" class="tab-btn active" type="button">
+          Natural Language Inquiry
+        </button>
+        <button id="tab-btn-sql" class="tab-btn" type="button">
+          Direct SQL Workbench
+        </button>
+      </nav>
+
+      <!-- MODE 1: Natural Language Inquiry Section -->
+      <section id="section-nl">
+        <!-- Suggested Questions -->
+        <div class="chips-container">
+          <span class="chips-label">Sample queries:</span>
+          <button class="chip-btn" data-prompt="Which months had the highest month-over-month revenue growth in 2025?" type="button">
+            2025 MoM Growth
+          </button>
+          <button class="chip-btn" data-prompt="What was the total net sales by product category in 2025?" type="button">
+            Category Net Sales
+          </button>
+          <button class="chip-btn" data-prompt="List the top 10 products by net revenue." type="button">
+            Top 10 Products
+          </button>
+          <button class="chip-btn" data-prompt="What is the customer count and total net sales by region?" type="button">
+            Regional Breakdown
+          </button>
+          <button class="chip-btn" data-prompt="Which product is best?" type="button">
+            Ambiguity Guardrail Test
+          </button>
+        </div>
+
+        <!-- NL Input Panel -->
+        <div class="input-panel">
+          <div class="nl-input-row">
+            <input 
+              id="nl-query-input" 
+              class="search-input" 
+              type="text" 
+              placeholder="Ask an analytical question (e.g. Which product categories had the highest net sales in 2025?)"
+              autocomplete="off"
+            >
+            <button id="btn-run-nl" class="btn-primary" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Run Query
+            </button>
+            <button id="btn-clear-nl" class="btn-secondary" type="button">
+              Clear
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- MODE 2: Custom SQL Workbench Section -->
+      <section id="section-sql" style="display: none;">
+        <div class="input-panel">
+          <p class="panel-instructions">
+            Enter your custom SQL statement below. The system checks read-only safety via SQLGlot AST validation, enforces query row limits, and provides an executive summary addressing your analytical questions.
+          </p>
+          <textarea 
+            id="custom-sql-input" 
+            class="sql-input-area" 
+            placeholder="SELECT p.category, ROUND(SUM(oi.quantity * oi.unit_price * (1.0 - oi.discount)), 2) AS net_sales&#10;FROM order_items oi&#10;JOIN orders o ON oi.order_id = o.order_id&#10;JOIN products p ON oi.product_id = p.product_id&#10;WHERE o.status = 'Completed'&#10;GROUP BY p.category&#10;ORDER BY net_sales DESC;"
+          ></textarea>
+          
+          <div class="sql-question-row">
+            <input 
+              id="custom-sql-question" 
+              class="search-input" 
+              type="text" 
+              placeholder="Analytical focus (optional): What specific insights should the AI summarize from these results?"
+            >
+            <button id="btn-run-sql" class="btn-primary" type="button">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+              Execute & Analyze
+            </button>
+            <button id="btn-clear-sql" class="btn-secondary" type="button">
+              Clear
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Agent Stepper Progress Bar -->
+      <section id="stepper-box" class="stepper-container" aria-live="polite">
+        <div id="stepper-header-text" class="stepper-header">Executing Analytical Pipeline...</div>
+        <div class="stepper-steps">
+          <div id="step-1" class="step-item">
+            <span class="step-num">01</span>
+            <span class="step-label">Interpret Intent</span>
+          </div>
+          <div id="step-2" class="step-item">
+            <span class="step-num">02</span>
+            <span class="step-label">Resolve Schema</span>
+          </div>
+          <div id="step-3" class="step-item">
+            <span class="step-num">03</span>
+            <span class="step-label">Generate SQL</span>
+          </div>
+          <div id="step-4" class="step-item">
+            <span class="step-num">04</span>
+            <span class="step-label">Validate AST</span>
+          </div>
+          <div id="step-5" class="step-item">
+            <span class="step-num">05</span>
+            <span class="step-label">Execute Safe Query</span>
+          </div>
+          <div id="step-6" class="step-item">
+            <span class="step-num">06</span>
+            <span class="step-label">Synthesize Findings</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Results Section -->
+      <section id="results-wrapper" class="results-wrapper">
+
+        <!-- Alert Notification (For Clarification or Policy Errors) -->
+        <div id="alert-card" class="alert-card" style="display: none;">
+          <div id="alert-message"></div>
+        </div>
+
+        <!-- Executive Answer Card -->
+        <article id="executive-card" class="executive-card">
+          <div class="card-title-row">
+            <div class="card-title">
+              Executive Summary
+            </div>
+            <span class="badge">Evidence Grounded</span>
+          </div>
+          <div id="executive-answer-body" class="answer-body"></div>
+        </article>
+
+        <!-- Result Tabs Navigation -->
+        <div class="result-tabs" role="tablist">
+          <button class="rtab-btn active" data-tab="tab-chart" role="tab">Visualization</button>
+          <button class="rtab-btn" data-tab="tab-table" role="tab">Data Table</button>
+          <button class="rtab-btn" data-tab="tab-sql" role="tab">SQL & AST Audit</button>
+          <button class="rtab-btn" data-tab="tab-telemetry" role="tab">Execution Telemetry</button>
+        </div>
+
+        <!-- Tab 1: Interactive Visualization -->
+        <div id="tab-chart" class="rtab-panel active" role="tabpanel">
+          <div id="chart-container" class="chart-box"></div>
+        </div>
+
+        <!-- Tab 2: Tabular Query Results -->
+        <div id="tab-table" class="rtab-panel" role="tabpanel">
+          <div class="table-panel">
+            <div class="table-controls">
+              <input id="table-search-input" class="table-search" type="text" placeholder="Search table results...">
+              <div class="table-actions-right">
+                <span id="table-rows-count" class="table-count-text">0 rows</span>
+                <button id="btn-download-csv" class="btn-nav" type="button">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Export CSV
+                </button>
+              </div>
+            </div>
+            <div class="table-scroll">
+              <table id="data-table">
+                <thead id="results-thead"></thead>
+                <tbody id="results-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tab 3: Generated SQL & Security -->
+        <div id="tab-sql" class="rtab-panel" role="tabpanel">
+          <div class="sql-box">
+            <div class="sql-header">
+              <div class="sql-status-badges">
+                <span class="badge">Read-Only Enforced</span>
+                <span id="sql-exec-time" class="badge">Execution: 0 ms</span>
+              </div>
+              <button id="btn-copy-sql" class="btn-nav" type="button">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                Copy SQL
+              </button>
+            </div>
+            <pre><code id="sql-code-block" class="sql-code-block"></code></pre>
+          </div>
+        </div>
+
+        <!-- Tab 4: Audit Telemetry -->
+        <div id="tab-telemetry" class="rtab-panel" role="tabpanel">
+          <div class="sql-box">
+            <div class="sql-header">
+              <span class="badge">State Transitions</span>
+            </div>
+            <pre class="telemetry-block"><code id="telemetry-json"></code></pre>
+          </div>
+        </div>
+
+        <!-- Interactive Follow-Up Q&A Section -->
+        <section class="followup-section">
+          <div class="followup-header">
+            Ask a Follow-Up Question
+          </div>
+          <p class="followup-subtext">
+            Submit inquiries grounded in the executed query results above.
+          </p>
+
+          <div class="followup-chips">
+            <button class="chip-btn fu-chip" data-fu="What is the top performing item in this data and by what margin does it lead?" type="button">
+              Top Performer & Margin
+            </button>
+            <button class="chip-btn fu-chip" data-fu="What is the total sum and average across the numeric columns in this result set?" type="button">
+              Total & Average
+            </button>
+            <button class="chip-btn fu-chip" data-fu="Which items are the lowest performers or represent significant anomalies in this data?" type="button">
+              Lowest Performers
+            </button>
+          </div>
+
+          <div class="followup-input-row">
+            <input 
+              id="followup-input" 
+              class="search-input" 
+              type="text" 
+              placeholder="e.g. Which item represents the highest percentage of total net sales?"
+            >
+            <button id="btn-ask-followup" class="btn-primary" type="button">
+              Analyze
+            </button>
+          </div>
+
+          <div id="followup-list" class="followup-chat-list"></div>
+        </section>
+
+      </section>
+    </main>
+
+    <!-- Schema Explorer Modal -->
+    <div id="schema-modal" class="modal-overlay" role="dialog" aria-modal="true">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Relational Schema & Business Dictionary</h2>
+          <button id="btn-close-schema" class="close-btn" type="button" aria-label="Close">&times;</button>
+        </div>
+        <div id="schema-modal-content" class="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- Engine Settings Modal -->
+    <div id="settings-modal" class="modal-overlay" role="dialog" aria-modal="true">
+      <div class="modal-content modal-content-sm">
+        <div class="modal-header">
+          <h2 class="modal-title">Engine Configuration</h2>
+          <button id="btn-close-settings" class="close-btn" type="button" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="setting-provider-select" class="form-label">
+              LLM Model Provider
+            </label>
+            <select id="setting-provider-select" class="search-input select-full">
+              <option value="mock">Offline Deterministic Analyst (Local Zero-Cost)</option>
+              <option value="gemini">Google Gemini (Gemini 1.5 Flash)</option>
+              <option value="openai">OpenAI (GPT-4o Mini)</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-bottom: 1.5rem;">
+            <label for="setting-api-key-input" class="form-label">
+              API Key (Optional if configured in environment)
+            </label>
+            <input id="setting-api-key-input" class="search-input input-full" type="password" placeholder="Enter Gemini or OpenAI API Key">
+          </div>
+
+          <button id="btn-save-settings" class="btn-primary btn-full" type="button">
+            Save Configuration
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
